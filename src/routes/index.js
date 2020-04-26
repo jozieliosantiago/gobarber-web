@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { Switch } from 'react-router-dom';
 import Route from './Route';
 
+import Loader from '../components/Loader';
+
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 
@@ -10,7 +12,7 @@ const Profile = lazy(() => import('../pages/Profile'));
 
 export default function Routes() {
   return (
-    <Suspense fallback={<h1>LOADING...</h1>}>
+    <Suspense fallback={<Loader />}>
       <Switch>
         <Route path="/" exact component={SignIn} />
         <Route path="/register" component={SignUp} />
