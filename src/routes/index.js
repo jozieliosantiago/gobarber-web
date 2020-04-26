@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Switch } from 'react-router-dom';
 import Route from './Route';
 
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
+const SignIn = lazy(() => import('../pages/SignIn'));
+const SignUp = lazy(() => import('../pages/SignUp'));
 
-import Dashboard from '../pages/Dashboard';
-import Profile from '../pages/Profile';
+const Dashboard = lazy(() => import('../pages/Dashboard'));
+const Profile = lazy(() => import('../pages/Profile'));
 
 export default function Routes() {
   return (
-    <Switch>
-      <Route path="/" exact component={SignIn} />
-      <Route path="/register" component={SignUp} />
+    <Suspense fallback={<h1>LOADING...</h1>}>
+      <Switch>
+        <Route path="/" exact component={SignIn} />
+        <Route path="/register" component={SignUp} />
 
-      <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/profile" component={Profile} isPrivate />
-    </Switch>
+        <Route path="/dashboard" component={Dashboard} isPrivate />
+        <Route path="/profile" component={Profile} isPrivate />
+      </Switch>
+    </Suspense>
   );
 }
